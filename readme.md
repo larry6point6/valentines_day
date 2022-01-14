@@ -19,6 +19,7 @@ The scope is going to be limited to the premier league and will contain informat
 1. Clone the repo
 2. Start a virtual environment
 3. Then run ```pip install -r requirements.txt``` in your python virtual environment
+4. You can access the database using SQL Alchemy or by using the following command ```sqlite football_stats.db```
 
 The data model will also be initially that of a minimal scope consisting of three tables Clubs, Players and Stats. The relationships are demonstrated below in an ERD diagram.
 
@@ -26,7 +27,7 @@ The data model will also be initially that of a minimal scope consisting of thre
 
 One club can have many players, one player can only have one stat entry.
 
-The data that will fill this database is going to data that is scraped from sites with the relevant information using a combination of the requests and the beautiful soup modules in Python.
+The database is currently empty, except for the tables in the data model. The data that will fill this database and tables is going to data that is scraped from sites with the relevant information using a combination of the requests and the beautiful soup modules in Python.
 
 Once this is completed, some cleaning of the data is next then it can placed into our current sqlite database.
 
