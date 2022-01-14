@@ -14,7 +14,11 @@ This idea/project is borne mostly of me wanting to explore some new technology I
 
 ## Plan
 
-The scope is going to be limited to the premier league and will contain information from this season. There may well be scope in the future to add additional leagues, and historic statistical information. The players will all be those currently with clubs.
+The scope is going to be limited to the premier league and will contain information from this season. There may well be scope in the future to add additional leagues, and historic statistical information. The players will all be those currently with clubs. The initial iteration is going to use python virtual environments and pipenv. If you want to explore the project.
+
+1. Clone the repo
+2. Start a virtual environment
+3. Then run ```pip install -r requirements.txt``` in your python virtual environment
 
 The data model will also be initially that of a minimal scope consisting of three tables Clubs, Players and Stats. The relationships are demonstrated below in an ERD diagram.
 
