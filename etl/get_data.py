@@ -22,6 +22,9 @@ def download_data(base=url):
     return r
 
 
+# TODO build in something that checks if file already exists if so, don't download again, don't need  to keep hitting the API in this testing phase
+
+
 def create_soup(data):
     soup = BeautifulSoup(
         data.content,
