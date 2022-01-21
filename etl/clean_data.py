@@ -8,7 +8,7 @@ def find_data(search_string, scripts):
         if search_string in str(el):
             string_with_json_obj = str(el).strip()
 
-        return string_with_json_obj
+            return string_with_json_obj
 
 
 def strip_json(json_string):
@@ -19,6 +19,8 @@ def strip_json(json_string):
     return json_data
 
 
-def convert_json(data):
-    pure_json = data.loads(json)
-    return pure_json
+def write_json(data):
+    with open("./data/football_stats.json", "w") as f:
+        f.write(
+            data,
+        )

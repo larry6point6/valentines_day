@@ -3,7 +3,7 @@ from bs4 import BeautifulSoup
 
 # Structure of URL is base + name_of_league + season_start
 
-base = "https://understat.com/"
+base = "https://understat.com/league"
 
 # Initially will just use Premier League but
 # this list gives us flexibility if we want to look at other leagues
