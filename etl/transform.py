@@ -1,6 +1,14 @@
 import json
 
 import pandas as pd
+from numpy import full
+
+
+def load_file(path):
+    with open(path, "r") as f:
+        data = json.load(f)
+
+    return data
 
 
 def get_team_names(data):
@@ -13,7 +21,7 @@ def get_team_names(data):
 def get_columns(data):
     columns = []
     for id in data.keys():
-        columns = [id for id in data[id][0].keys()]
+        columns = [id for id in data[id]["history"][0].keys()]
 
     return columns
 
@@ -23,7 +31,7 @@ def get_all_teams(teams, columns, data):
     for id, team in teams.items():
         teams_data = []
         for row in data[id]["history"]:
-            teams_data.append(list(row.values))
+            teams_data.append(list(row.values()))
 
         df = pd.DataFrame(teams_data, columns=columns)
         dataframes[team] = df
@@ -72,10 +80,31 @@ def create_final_df(dataframes):
         frames.append(final_df)
 
     full_stat = pd.concat(frames)
+    full_stat.sort_values("pts", ascending=False, inplace=True)
+
     return full_stat
 
 
-columns_reordered = [
+def add_columns(df):
+    df["position"] = range(1, len(df) + 1)
+    df["xG_diff"] = df["xG"] - df["scored"]
+    df["xGA_diff"] = df["xGA"] - df["missed"]
+    df["xpts_diff"] = df["xpts"] - df["pts"]
+    return df
+
+
+cols_to_int = [
+    "wins",
+    "draws",
+    "loses",
+    "scored",
+    "missed",
+    "pts",
+    "deep",
+    "deep_allowed",
+]
+
+col_order = [
     "position",
     "team",
     "matches",
@@ -101,43 +130,20 @@ columns_reordered = [
 ]
 
 
-def add_columns(df):
-    df["position"] = range(1, len(df) + 1)
-    df["xG_diff"] = df["xGA"] - df["scored"]
-    df["xGA_diff"] = df["xGA"] - df["missed"]
-    df["xpts_diff"] = df["xpts"] - df["stats"]
-
-    return df
-
-
-cols_to_int = [
-    "wins",
-    "draws",
-    "loses",
-    "scored",
-    "missed",
-    "pts",
-    "deep",
-    "deep_allowed",
-]
-
-
 def prep_final_df(df):
-    df = df[cols_to_int].astype(int)
-    df = df[columns_reordered]
-    df.sort_values(inplace=True, ascending=False)
+    df = df[col_order]
+    df[cols_to_int] = df[cols_to_int].astype(int)
+    df.rename(columns={"missed": "conceded"}, inplace=True)
+    df.set_index("position", inplace=True)
 
     return df
 
 
 def write_df(df):
     df.to_csv("test.csv")
+    print("file being written to current working directory")
 
 
 # Celery would have to wait for the message job completed before starting the next task,
 # Could have multiple workers executing the task i.e players and clubs running in parallel
 # Like a DAG each task dependent on completion of predecessor
-
-
-# physio, osteopathy, chiropractic - sessions you can self refer - woke up badly,
-# scan in via app - hold on to recipts for 6 months

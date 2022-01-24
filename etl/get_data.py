@@ -23,6 +23,7 @@ def download_data(base=url):
 
 
 # TODO build in something that checks if file already exists if so, don't download again, don't need  to keep hitting the API in this testing phase
+# Rather than print that message log it in a file then feed the output to the subsequent functions
 
 
 def create_soup(data):
