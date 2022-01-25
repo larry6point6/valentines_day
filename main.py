@@ -1,6 +1,4 @@
-from asyncore import write
-from audioop import add
-from typing import final
+import pathlib
 
 import pretty_errors
 
@@ -10,17 +8,23 @@ string = "teamsData"
 path = "./data/football_stats.json"
 
 
-def main():
+def run_get_data(path):
+    path = pathlib.Path(path)
+    if path.exists():
+        print(f"Not downloading data again for {path} already downloaded today")
+    else:
+        data = get_data.download_data()
 
-    # data = get_data.download_data()
+        soup = get_data.create_soup(data)
 
-    # soup = get_data.create_soup(data)
+        json_string = clean_data.find_data(string, soup)
 
-    # json_string = clean_data.find_data(string, soup)
+        json_string_cleaned = clean_data.strip_json(json_string)
 
-    # json_string_cleaned = clean_data.strip_json(json_string)
+        json_data = clean_data.write_json(json_string_cleaned)
 
-    # json_data = clean_data.write_json(json_string_cleaned)
+
+def transform_data():
 
     data = transform.load_file(path)
 
@@ -38,6 +42,12 @@ def main():
     df = transform.prep_final_df(computed_cols)
 
     transform.write_df(df)
+
+
+def main():
+
+    run_get_data(path)
+    transform_data()
 
 
 if __name__ == "__main__":
