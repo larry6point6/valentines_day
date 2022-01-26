@@ -32,3 +32,11 @@ The database is currently empty, except for the tables in the data model. The da
 Once this is completed, some cleaning of the data is next then it can placed into our current sqlite database.
 
 Then connecting up the GPT3 to build out the query side of things.
+
+The data is provided via [understat](https://understat.com/), the data is JSON which needed some cleaning all of this is detailed in ```etl/transform.py```, initially did all the exploration in a jupyter notebook then abstracted the logic into mostly self contained functions, with a view to using celery workers to call these functions. These functions are rough and will need some tidying up, will add in some logging and docstrings.
+
+Also added in some functionality to write the data to a JSON file to stop hammering the website with requests. If the data is present no request is made (detailed in ```main.py```), this could be further enhanced by suffixing a data identifier to the file path to ensure the most up to date data. In this current testing stage having the latest data isn't crucial.
+
+All that's left to do is load the data, in the script I wrote the output to a csv file for a simple sense check. The original schema I envisioned is no longer fit for purpose, there was much richer data than I expected provided by understat. In addition with the data available from understat I don't think I'll need a separate table for statistics.
+
+In order to manage these schema changes and migrations I am going to use alembic. This will allow me to migrate the schema to a required format and if there are any issues will also allow me the ability to roll the schemas back to earlier versions.

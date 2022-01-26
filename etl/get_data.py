@@ -3,7 +3,7 @@ from bs4 import BeautifulSoup
 
 # Structure of URL is base + name_of_league + season_start
 
-base = "https://understat.com/"
+base = "https://understat.com/league"
 
 # Initially will just use Premier League but
 # this list gives us flexibility if we want to look at other leagues
@@ -20,6 +20,10 @@ def download_data(base=url):
     print(r.raise_for_status)
 
     return r
+
+
+# TODO build in something that checks if file already exists if so, don't download again, don't need  to keep hitting the API in this testing phase
+# Rather than print that message log it in a file then feed the output to the subsequent functions
 
 
 def create_soup(data):
