@@ -2,7 +2,7 @@ from sqlalchemy import Boolean, Column, Integer, Numeric, String
 from sqlalchemy.orm import relationship
 from sqlalchemy.sql.schema import ForeignKey
 
-from base import Base
+from db.base import Base
 
 
 class Players(Base):

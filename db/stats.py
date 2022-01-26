@@ -1,7 +1,7 @@
 from sqlalchemy import Column, ForeignKey, Integer, Numeric, String
 from sqlalchemy.orm import relationship
 
-from base import Base
+from db.base import Base
 
 
 class Stats(Base):
