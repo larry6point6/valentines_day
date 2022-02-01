@@ -142,7 +142,7 @@ def prep_final_df(df):
 
 
 def write_df(df):
-    df.to_sql("clubs", con=engine, if_exists="append")
+    df.to_sql("clubs", con=engine, if_exists="replace")
     print("Writing clubs to database")
     # df.to_csv("test.csv")
     # print("file being written to current working directory")
