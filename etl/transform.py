@@ -1,6 +1,7 @@
 import json
 
 import pandas as pd
+from db.base import engine
 from numpy import full
 
 
@@ -133,15 +134,18 @@ col_order = [
 def prep_final_df(df):
     df = df[col_order]
     df[cols_to_int] = df[cols_to_int].astype(int)
-    df.rename(columns={"missed": "conceded"}, inplace=True)
+    df.rename(columns={"missed": "goals_conceded"}, inplace=True)
+    df.rename(columns={"scored": "goals_scored"}, inplace=True)
     df.set_index("position", inplace=True)
 
     return df
 
 
 def write_df(df):
-    df.to_csv("test.csv")
-    print("file being written to current working directory")
+    df.to_sql("clubs", con=engine, if_exists="replace")
+    print("Writing clubs to database")
+    # df.to_csv("test.csv")
+    # print("file being written to current working directory")
 
 
 # Celery would have to wait for the message job completed before starting the next task,
