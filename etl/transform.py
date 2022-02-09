@@ -2,7 +2,6 @@ import json
 
 import pandas as pd
 from db.base import engine
-from numpy import full
 
 
 def load_file(path):
