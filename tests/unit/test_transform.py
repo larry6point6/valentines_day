@@ -1,6 +1,4 @@
 import etl.transform
-from conftest import create_teams_dict, create_test_data, get_initial_columns
-from matplotlib.pyplot import get
 
 
 def test_get_team_names(create_test_data, create_teams_dict):
@@ -34,3 +32,15 @@ def test_add_coefficient(create_teams_dict, get_initial_columns, create_test_dat
     # seems quicker for the single assertion versus the column checks
     # Prior to the addition we have 19 columns
     assert 21 == len(coeff["Arsenal"])
+
+
+def test_create_final_dataframe(
+    create_teams_dict, get_initial_columns, create_test_data
+):
+    dataframes = etl.transform.get_all_teams(
+        create_teams_dict, get_initial_columns, create_test_data
+    )
+    coeff = etl.transform.add_coefficients(dataframes)
+    final_df = etl.transform.create_final_df(coeff)
+    assert 20 == len(final_df)
+    assert 18 == len(final_df.columns)
