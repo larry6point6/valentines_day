@@ -2,7 +2,6 @@ import json
 
 import pandas as pd
 from db.base import engine
-from numpy import full
 
 
 def load_file(path):
@@ -105,30 +104,6 @@ cols_to_int = [
     "deep_allowed",
 ]
 
-col_order = [
-    "position",
-    "team",
-    "matches",
-    "wins",
-    "draws",
-    "loses",
-    "scored",
-    "missed",
-    "pts",
-    "xG",
-    "xG_diff",
-    "npxG",
-    "xGA",
-    "xGA_diff",
-    "npxGA",
-    "npxGD",
-    "ppda_coef",
-    "oppda_coef",
-    "deep",
-    "deep_allowed",
-    "xpts",
-    "xpts_diff",
-]
 
 
 def prep_final_df(df):
