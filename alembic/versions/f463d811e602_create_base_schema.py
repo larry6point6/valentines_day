@@ -85,3 +85,6 @@ def downgrade():
     op.drop_table("players")
     op.drop_table("clubs")
     # ### end Alembic commands ###
+
+
+# Form for skills, everyone's specialism's

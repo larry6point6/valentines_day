@@ -9,16 +9,14 @@ def test_get_columns(get_initial_columns, create_test_data):
     assert get_initial_columns == etl.transform.get_columns(create_test_data)
 
 
+# Test here that the dictionary of dataframes contains 20 entries(History
+# of each team in the league)
 def test_get_all_teams(create_teams_dict, get_initial_columns, create_test_data):
     assert 20 == len(
         etl.transform.get_all_teams(
             create_teams_dict, get_initial_columns, create_test_data
         )
     )
-
-
-# Test here that the dictionary of dataframes contains 20 entries(History
-# of each team in the league)
 
 
 def test_add_coefficient(create_teams_dict, get_initial_columns, create_test_data):

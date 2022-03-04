@@ -105,7 +105,6 @@ cols_to_int = [
 ]
 
 
-
 def prep_final_df(df):
     df = df[col_order]
     df[cols_to_int] = df[cols_to_int].astype(int)
