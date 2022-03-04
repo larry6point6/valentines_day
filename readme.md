@@ -32,6 +32,7 @@ With the thinking being that one club can have many players, one player can have
 The original schema I envisioned is no longer fit for purpose, after exploring the data I realised the data was much richer data than I expected. In addition with the data available from understat, a seperate table for stats is not required. The new ERD is below.
 
 ![Football Stats updated ERD](football_stats_erd_updated.png)
+
 One club can have many players, one player can have more than one entry(if they move clubs during the season etc)
 
 The clubs table has been populated, the players table is empty, this is deliberate to get to a MVP before adding in the additional data. Once I'm ready to populate the database further and make changes to the schema, I am going to use alembic. This will allow me to migrate the schema to a required format and if there are any issues will also allow me the ability to roll the schemas back to earlier versions.
