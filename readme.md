@@ -31,7 +31,7 @@ With the thinking being that one club can have many players, one player can have
 
 The original schema I envisioned is no longer fit for purpose, after exploring the data I realised the data was much richer data than I expected. In addition with the data available from understat, a seperate table for stats is not required. The new ERD is below.
 
-![Football Stats updated ERD](new_data_model.png)
+![Football Stats updated ERD](football_stats_erd_updated.png)
 One club can have many players, one player can have more than one entry(if they move clubs during the season etc)
 
 The clubs table has been populated, the players table is empty, this is deliberate to get to a MVP before adding in the additional data. Once I'm ready to populate the database further and make changes to the schema, I am going to use alembic. This will allow me to migrate the schema to a required format and if there are any issues will also allow me the ability to roll the schemas back to earlier versions.
@@ -46,7 +46,7 @@ All that's left to do is load the data, in the script I wrote the output to a cs
 
 ### GPT3
 
-Then connecting up the GPT3 to build out the query side of things. The thinking here is that by leveraging gpt3's API we can generate SQL queries on the fly that will answer questions posed in our minimal flask app, all the code is stored in ```gpt3_app/``` follows a pretty standard flask setup. In order to run this and test the project yourself you can do the following(this assumes you already have your virtual environment activated)
+Then connecting up the GPT3 to build out the query side of things. The thinking here is that by leveraging gpt3's API we can generate SQL queries on the fly that will answer questions posed in a minimal flask app, all the code is stored in ```gpt3_app/``` follows a pretty standard flask setup. In order to run this and test the project yourself you can do the following(this assumes you already have your virtual environment activated)
 
 1) ```cd gpt3_app/```
 2) ```flask run``` (will run on port 5000, if port is in use can pass -p to specify an alternative port)
