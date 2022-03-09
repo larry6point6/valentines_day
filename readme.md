@@ -54,7 +54,7 @@ Then connecting up the GPT3 to build out the query side of things. The thinking 
 3) Then in the root directory run this command ```mv env.example .env```, if you are going to push this to github please remember to add the ```.env``` file to gitignore (more info [here](https://sebastiandedeyne.com/setting-up-a-global-gitignore-file/) or you can create a gitignore file for this project) will protect your API KEY
 4) Once that's done you just need to run the below
 5) ```cd gpt3_app/```
-6) ```flask run``` (will run on port 5000, if port is in use can pass -p to specify an alternative port)
+6) ```flask run``` (will run on port 5000, if port is in use can pass ```-p``` to specify an alternative port like ```5001```)
 7) Enter your query and an answer will appear
 
 GPT3 will generate some SQL and the project will run it and return your response from the database. If the question you ask, doesn't have an answer (or at the time of writing only one table present) you will get back a sqlalchemy error explaining the error like the below (I've cropped the image)
