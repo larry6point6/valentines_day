@@ -21,6 +21,7 @@ openai.api_key = os.getenv("OPENAI_API_KEY")
 
 @app.route("/", methods=("GET", "POST"))
 def index():
+
     if request.method == "POST":
         query = request.form["query"]
         response = openai.Completion.create(
@@ -32,8 +33,14 @@ def index():
         return redirect(url_for("index", result=response.choices[0].text.split(";")))
 
     result = request.args.get("result")
-    answer = db.session.execute(result)
+    print(result)
 
-    result = answer.fetchone()
+    if result is None:
+        return render_template("index.html")
 
-    return render_template("index.html", result=result[0])
+    else:
+        answer = db.session.execute(result)
+
+        result = answer.fetchone()
+
+        return render_template("index.html", result=result[0])

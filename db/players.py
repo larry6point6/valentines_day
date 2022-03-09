@@ -1,5 +1,4 @@
 from sqlalchemy import Boolean, Column, Integer, Numeric, String
-from sqlalchemy.orm import relationship
 from sqlalchemy.sql.schema import ForeignKey
 
 from db.base import Base
@@ -9,17 +8,20 @@ class Players(Base):
     __tablename__ = "players"
 
     id = Column(Integer, primary_key=True)
-    club_id = Column(Integer, ForeignKey("clubs.id"))
-    name = Column(String)
-    age = Column(Integer)
-    nationality = Column(String)
-    value = Column(Numeric(10, 2))
-    is_active_club = Column(Boolean)
-    stats = relationship("Stats", backref="players", uselist=False)
-
-    def __init__(self, name, age, nationality, value, is_active_club):
-        self.name = name
-        self.age = age
-        self.nationality = nationality
-        self.value = value
-        self.is_active_club = is_active_club
+    player_name = Column(String, nullable=False)
+    game = Column(Numeric, nullable=False)
+    time = Column(Numeric, nullable=False)
+    goals = Column(Numeric, nullable=False)
+    xG = Column(Numeric, nullable=False)
+    assists = Column(Numeric, nullable=False)
+    xA = Column(Numeric, nullable=False)
+    shots_taken = Column(Numeric, nullable=False)
+    key_passes = Column(Numeric, nullable=False)
+    yellow_cards = Column(Numeric, nullable=False)
+    red_cards = Column(Numeric, nullable=False)
+    position = Column(Numeric, nullable=False)
+    team_title = Column(String, ForeignKey("clubs.team"))
+    npg = Column(Numeric, nullable=False)
+    npxG = Column(Numeric, nullable=False)
+    xGChain = Column(Numeric, nullable=False)
+    xGBuildup = Column(Numeric, nullable=False)

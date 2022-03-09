@@ -1,5 +1,3 @@
-from ast import Str
-
 from sqlalchemy import Column, Integer, Numeric, String
 from sqlalchemy.orm import relationship
 
@@ -10,9 +8,8 @@ from db.players import Players
 class Clubs(Base):
     __tablename__ = "clubs"
 
-    id = Column(Integer, primary_key=True)
+    team = Column(Numeric, nullable=False, primary_key=True)
     position = Column(String, nullable=False)
-    team = Column(Numeric, nullable=False)
     matches = Column(Numeric, nullable=False)
     wins = Column(Numeric, nullable=False)
     draws = Column(Numeric, nullable=False)
@@ -34,7 +31,3 @@ class Clubs(Base):
     xpts = Column(Numeric, nullable=False)
     xpts_dif = Column(Numeric, nullable=False)
     players = relationship("Players", backref="clubs")
-
-    def __init__(self, club_name, league):
-        self.club_name = club_name
-        self.league = league
