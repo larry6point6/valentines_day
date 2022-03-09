@@ -8,9 +8,9 @@ def generate_prompt(query):
     Query: Which team has the highest xg.
     SQL: SELECT team from Clubs ORDER BY xg DESC LIMIT 1;
     Query: Who has scored the most goals.
-    SQL: SELECT player from Players ORDER BY goals DESC Limit 1;
+    SQL: SELECT player_name from Players ORDER BY goals DESC Limit 1;
     Query: Who are the three highest scorers.
-    SQL: SELECT player from Players ORDER BY goals DESC Limit 3;
+    SQL: SELECT player_name from Players ORDER BY goals DESC Limit 3;
     Query: {}
     SQL:""".format(
         query

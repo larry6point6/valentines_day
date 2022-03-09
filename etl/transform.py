@@ -1,4 +1,5 @@
 import json
+import logging
 
 import pandas as pd
 from db.base import engine
@@ -35,7 +36,7 @@ def get_all_teams(teams, columns, data):
 
         df = pd.DataFrame(teams_data, columns=columns)
         dataframes[team] = df
-        print(f"Added data for {team}")
+        logging.info(f"Added data for {team}")
     return dataframes
 
 
@@ -104,8 +105,33 @@ cols_to_int = [
     "deep_allowed",
 ]
 
+col_order = [
+    "position",
+    "team",
+    "matches",
+    "wins",
+    "draws",
+    "loses",
+    "scored",
+    "missed",
+    "pts",
+    "xG",
+    "xG_diff",
+    "npxG",
+    "xGA",
+    "xGA_diff",
+    "npxGA",
+    "npxGD",
+    "ppda_coef",
+    "oppda_coef",
+    "deep",
+    "deep_allowed",
+    "xpts",
+    "xpts_diff",
+]
 
-def prep_final_df(df):
+
+def prep_final_clubs_df(df):
     df = df[col_order]
     df[cols_to_int] = df[cols_to_int].astype(int)
     df.rename(columns={"missed": "goals_conceded"}, inplace=True)
@@ -115,9 +141,16 @@ def prep_final_df(df):
     return df
 
 
-def write_df(df):
-    df.to_sql("clubs", con=engine, if_exists="replace")
-    print("Writing clubs to database")
+def prep_players_df(path):
+    players_data = load_file(path)
+    players_df = pd.DataFrame(players_data)
+    players_df.rename(columns={"shots": "shots_taken"}, inplace=True)
+    return players_df
+
+
+def write_df(df, tablename):
+    df.to_sql(tablename, con=engine, if_exists="replace")
+    logging.info(f"Writing {tablename} to database")
     # df.to_csv("test.csv")
     # print("file being written to current working directory")
 

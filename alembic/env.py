@@ -20,7 +20,6 @@ fileConfig(config.config_file_name)
 from db.base import Base
 from db.clubs import Clubs
 from db.players import Players
-from db.stats import Stats
 
 target_metadata = Base.metadata
 

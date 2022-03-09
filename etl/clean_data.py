@@ -1,4 +1,7 @@
 # Structure of the site is pretty simple this can be used for both clubs and players
+import logging
+
+
 def find_data(search_string, scripts):
     for el in scripts:
         string_with_json_obj = ""
@@ -16,8 +19,10 @@ def strip_json(json_string):
     return json_data
 
 
-def write_json(data):
-    with open("./data/football_stats.json", "w") as f:
+def write_json(data, filename):
+    filepath = f"./data/{filename}.json"
+    with open(filepath, "w") as f:
+        logging.info(f"writing data to {filepath}")
         f.write(
             data,
         )

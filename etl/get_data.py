@@ -1,29 +1,26 @@
+import logging
+import os
+
 import requests
 from bs4 import BeautifulSoup
+from dotenv import load_dotenv
 
-# Structure of URL is base + name_of_league + season_start
+load_dotenv()
 
-base = "https://understat.com/league"
-
-# Initially will just use Premier League but
-# this list gives us flexibility if we want to look at other leagues
-# or later pull all the data
-leagues = ["EPL", "La Liga", "Bundesliga", "Serie A", "Ligue 1", "RPFL"]
-seasons = ["2014", "2015", "2016", "2017", "2018", "2019", "2021"]
-
-# To select another league/season modify the below line accordingly
-url = f"{base}/{leagues[0]}/{seasons[-1]}"
+base = os.getenv("BASE_URL")
+league = os.getenv("LEAGUE")
+season = os.getenv("SEASON")
+url = f"{base}/{league}/{season}"
 
 
 def download_data(base=url):
     r = requests.get(url)
-    print(r.raise_for_status)
+    if r.status_code == 200:
+        logging.info(f"Request succeeded with status code: {r.status_code}")
+    else:
+        logging.info(f"Request failed with status code: {r.status_code}")
 
     return r
-
-
-# TODO build in something that checks if file already exists if so, don't download again, don't need  to keep hitting the API in this testing phase
-# Rather than print that message log it in a file then feed the output to the subsequent functions
 
 
 def create_soup(data):
