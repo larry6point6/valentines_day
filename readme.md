@@ -16,9 +16,9 @@ This idea/project is borne mostly of me wanting to explore some new technology I
 
 The scope is going to be limited to the premier league and will contain information from this season. There may well be scope in the future to add additional leagues, and historic statistical information. The players will all be those currently with clubs. The initial iteration is going to use pipenv. If you want to explore the project, do the following:
 
-1. Clone the repo
+1. Clone the repo, if you have a folder for projects clone it there ```git clone https://github.com/larry6point6/valentines_day``` this will create a directory called valentines_day
 2. Start a virtual environment in the root directory using ```pipenv shell```
-3. Then run ```pip install -r requirements.txt``` in the virtual environment
+3. Then run ```pipenv install``` in the virtual environment, this will install all the required dependencies
 4. You can access the database using SQL Alchemy or by using the following command ```sqlite ./db/football_stats.db``` from the root directory
 
 ### Data Model
@@ -35,11 +35,11 @@ The original schema I envisioned is no longer fit for purpose, after exploring t
 
 One club can have many players, one player can have more than one entry(if they move clubs during the season etc)
 
-The clubs table has been populated, the players table is empty, this is deliberate to get to a MVP before adding in the additional data. Once I'm ready to populate the database further and make changes to the schema, I am going to use alembic. This will allow me to migrate the schema to a required format and if there are any issues will also allow me the ability to roll the schemas back to earlier versions.
+The clubs table has been populated, the players table has also been populated. I am going to use alembic in order to manage schema changes. This will allow me to migrate the schema to a required format and if there are any issues will also allow me the ability to roll the schemas back to earlier versions.
 
 ### Getting the Data
 
-The data is provided via [understat](https://understat.com/), the data is JSON which needed some cleaning all of this is detailed in ```etl/transform.py```, initially did all the exploration in a jupyter notebook then abstracted the logic into mostly self contained functions, with a view to eventually using celery workers to call these functions. These functions are rough and will need some tidying up, will eventually add in some logging and docstrings.
+The data is provided via [understat](https://understat.com/), the data is JSON which needed some cleaning all of this is detailed in ```etl/transform.py```, initially did all the exploration in a jupyter notebook then abstracted the logic into mostly self contained functions, with a view to eventually/possibly using celery workers to call these functions. These functions could and will eventually probably be refactored.
 
 Also added in some functionality to write the data to a JSON file to stop hammering the website with requests. If the data is present no request is made (detailed in ```main.py```), this could be further enhanced by suffixing a data identifier to the file path to ensure the most up to date data. In this current testing stage having the latest data isn't crucial.
 
@@ -47,11 +47,11 @@ All that's left to do is load the data, there is a function which does this in `
 
 ### GPT3
 
-Then connecting up the GPT3 to build out the query side of things. The thinking here is that by leveraging gpt3's API we can generate SQL queries on the fly that will answer questions posed in a minimal flask app, all the code is stored in ```gpt3_app/``` follows a pretty standard flask setup. In order to run this and test the project yourself you can do the following(this assumes you already have your virtual environment activated)
+Then connecting up the GPT3 to build out the query side of things. The thinking here is that by leveraging gpt3's API we can generate SQL queries on the fly that will answer questions posed in a minimal flask app, all the code for this is stored in ```gpt3_app/``` directory. In order to run this and test the project yourself you can do the following(this assumes you already have your virtual environment activated)
 
 1) Register for an API KEY with openai [here](https://openai.com/api/)
 2) Fill in your api key in ```.env.example``` file, everything else is fine, just need to update the ```OPENAI_API_KEY``` variable with your key
-3) Then in the root directory run this command ```mv env.example .env```, if you are going to push this to github please remember to add the ```.env``` file to gitignore (more info [here](https://sebastiandedeyne.com/setting-up-a-global-gitignore-file/) or you can create a gitignore file for this project) will protect your API KEY
+3) Then in the root directory run this command ```mv env.example .env```, if you are going to push this to github please remember to add the ```.env``` file to ```gitignore``` (more info [here](https://sebastiandedeyne.com/setting-up-a-global-gitignore-file/) or you can create a single ```gitignore``` file for this project) will protect your API KEY
 4) Once that's done you just need to run the below
 5) ```cd gpt3_app/```
 6) ```flask run``` (will run on port 5000, if port is in use can pass ```-p``` to specify an alternative port like ```5001```)
