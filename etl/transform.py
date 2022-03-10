@@ -151,10 +151,3 @@ def prep_players_df(path):
 def write_df(df, tablename):
     df.to_sql(tablename, con=engine, if_exists="replace")
     logging.info(f"Writing {tablename} to database")
-    # df.to_csv("test.csv")
-    # print("file being written to current working directory")
-
-
-# Celery would have to wait for the message job completed before starting the next task,
-# Could have multiple workers executing the task i.e players and clubs running in parallel
-# Like a DAG each task dependent on completion of predecessor
