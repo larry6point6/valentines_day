@@ -1,3 +1,4 @@
+# Structure of the site is pretty simple this can be used for both clubs and players
 import logging
 
 

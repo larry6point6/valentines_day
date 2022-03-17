@@ -28,7 +28,7 @@ def create_soup(data):
         data.content,
         "lxml",
     )
-
+    # We know that we're looking for the script tag as this houses our data
     scripts = soup.find_all("script")
 
     return scripts
