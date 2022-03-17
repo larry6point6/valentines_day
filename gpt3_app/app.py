@@ -16,8 +16,6 @@ app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 db = SQLAlchemy(app)
 openai.api_key = os.getenv("OPENAI_API_KEY")
 
-# query = "SELECT max(xg) from Clubs ORDER BY pts DESC limit 1"
-
 
 @app.route("/", methods=("GET", "POST"))
 def index():
