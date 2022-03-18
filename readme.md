@@ -39,7 +39,7 @@ The clubs table has been populated, the players table has also been populated. I
 
 ### Getting the Data
 
-The data is provided via [understat](https://understat.com/), the data is JSON which needed some cleaning all of this is detailed in ```etl/transform.py```, initially did all the exploration in a jupyter notebook then abstracted the logic into mostly self contained functions, with a view to eventually/possibly using celery workers to call these functions. These functions could and will eventually probably be refactored.
+The data is provided via [understat](https://understat.com/), the data is JSON which needed some cleaning all of this is detailed in ```etl/transform.py```, with some reworking/modifications of the really nice work done [here](https://www.sergilehkyi.com/web-scraping-advanced-football-statistics/) initially did all the exploration in a jupyter notebook then abstracted the logic into mostly self contained functions, with a view to eventually/possibly using celery workers to call these functions. These functions could and will eventually probably be refactored.
 
 Also added in some functionality to write the data to a JSON file to stop hammering the website with requests. If the data is present no request is made (detailed in ```main.py```), this could be further enhanced by suffixing a data identifier to the file path to ensure the most up to date data. In this current testing stage having the latest data isn't crucial.
 
